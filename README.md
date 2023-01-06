@@ -66,25 +66,25 @@ Once you have an object with `UJlsGenerator` actor component and actors implemen
 ### Blueprints Tutorial (a bit less technical)
 Add `JlsGenerator` actor component to one of your game objects (e.g. game mode or game state). 
 It has functions to generate a level and clear a level. Also the component has a delegate that is being called once level is generated. 
-<screenshot 1>
+![enter image description here](https://github.com/slonorib/JsonLevels-docs/blob/main/Screenshots/blueprint-tutorial-1.png?raw=true)
 Actors that will be part of JSON data should implement `JlsGameplayActor` interface and overwrite 2 functions.
 In `CreateJsonFromActor(...)` user should construct JSON object and add fields representing the actor to it.
 In `CreateActorFromJson(...)`user should read JSON object and overwrite actor values using values from JSON.
 
 Imagine, we're making a cool RPG game, and need to create a JSON with information about an enemy:
-<screenshot 2>
-<screenshot 3>
+![enter image description here](https://github.com/slonorib/JsonLevels-docs/blob/main/Screenshots/blueprint-tutorial-2.png?raw=true)
+![enter image description here](https://github.com/slonorib/JsonLevels-docs/blob/main/Screenshots/blueprint-tutorial-3.png?raw=true)
 
 Once you have an object with `JlsGenerator` actor component and actors implementing `JlsGameplayActor` you can call `GenerateLevel(...)` function of `JlsGenerator` using a JSON that we will generate in the **Level -> JSON** part of the tutorial.
 
 ## Level -> JSON
 During the previous step you've overwritten `JlsGameplayActor` interface function in an actor(s). Place actors on the scene
-<screenshot 4>
+![enter image description here](https://github.com/slonorib/JsonLevels-docs/blob/main/Screenshots/blueprint-tutorial-4.png?raw=true)
 You can also notice 'Enemy data' tab in actor details section. These fields were added as a part of RPG enemy example and will be added to JSON during the JSON creation process and then overwritten in the actor during the level creation process.
 Open list of editing modes and select **JsonLevels**
-<screenshot 5>
+![enter image description here](https://github.com/slonorib/JsonLevels-docs/blob/main/Screenshots/blueprint-tutorial-5.png?raw=true)
 Then click 'Create JSON' button. Generated JSON will appear in the text box:
-<screenshot 6>
+![enter image description here](https://github.com/slonorib/JsonLevels-docs/blob/main/Screenshots/blueprint-tutorial-6.png?raw=true)
 Remember cube Jake? That's how he looks now:
 
     {
