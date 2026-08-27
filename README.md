@@ -102,50 +102,43 @@ Say you're making a cool RPG and need to create a JSON with information about an
 Once you have an object with a `JlsGenerator` actor component and actors implementing `JlsGameplayActor`, you can call the `GenerateLevel(...)` function of `JlsGenerator`, passing it the JSON generated in the [Level → JSON](#level--json) part of this tutorial.
 
 ## Level → JSON
-In the previous step, you implemented the `JlsGameplayActor` interface functions on an actor. Place that actor on the scene:
+In the previous step, you implemented the `JlsGameplayActor` interface functions on an actor. Place that actor on the scene, open the [JsonLevels panel](#installation) and click **Create JSON**:
 
-![Enemy actor placed in the level, with an Enemy Data category visible in its Details panel](https://github.com/slonorib/JsonLevels-docs/blob/main/Screenshots/blueprint-tutorial-4.png?raw=true)
+![Enemy actor placed in the level, its Enemy Data visible in the Details panel, and the generated JSON in the JsonLevels panel](https://github.com/slonorib/JsonLevels-docs/blob/main/Screenshots/blueprint-tutorial-4.png?raw=true)
 
-Notice the **Enemy Data** tab in the actor's Details panel. These fields were added as part of the RPG enemy example — they'll be written to JSON during the JSON creation step, then read back into the actor during level creation.
-
-Open the [JsonLevels panel](#installation) and click **Create JSON**. The generated JSON appears in the text box:
-
-![JsonLevels editor mode panel showing the generated JSON in its text box](https://github.com/slonorib/JsonLevels-docs/blob/main/Screenshots/blueprint-tutorial-6.png?raw=true)
-
-Remember the cube named Jake? Here's how he looks now:
+Notice the **Enemy Data** and **Loot** categories in the actor's Details panel. These fields were added as part of the RPG enemy example — they're written to JSON during the JSON creation step, then read back into the actor during level creation. Here's the enemy from the screenshot above, "Angry Gnome":
 
     {
         "Transform":
         {
             "Location":
             {
-                "x": -140.72625732421875,
-                "y": -74.195877075195312,
-                "z": 120.40150451660156
+                "x": -70,
+                "y": 80,
+                "z": 30
             },
             "Rotation":
             {
-                "x": 0,
+                "x": -0,
                 "y": 0,
                 "z": 0
             },
             "Scale":
             {
-                "x": 1,
-                "y": 1,
-                "z": 2
+                "x": 0.5,
+                "y": 0.5,
+                "z": 0.5
             }
         },
-        "Health": 50,
-        "Name": "Jake",
+        "Health": 10,
+        "Name": "Angry Gnome",
         "Loot":
         {
-            "Gold": 10,
+            "Gold": 200,
             "Items":
             [
                 "Potato",
-                "Carrot",
-                "Fork"
+                "Epic Sword"
             ]
         }
     }
@@ -155,7 +148,12 @@ The JSON text box is editable, so you can always paste a level into it by hand. 
 
 - **Save Level → To JSON File...** writes the JSON to a `.json` file anywhere on disk.
 - **Save Level → To Data Asset...** writes it to a **Json Level** asset in your project.
+
+![Save Level dropdown with To JSON File... and To Data Asset... options](https://github.com/slonorib/JsonLevels-docs/blob/main/Screenshots/blueprint-tutorial-7.png?raw=true)
+
 - **Load Level → From JSON File... / From Data Asset...** reads it back into the text box and generates the level in the scene straight away, so there's no need to press **Generate Level** afterwards.
+
+![Load Level dropdown with From JSON File... and From Data Asset... options](https://github.com/slonorib/JsonLevels-docs/blob/main/Screenshots/blueprint-tutorial-8.png?raw=true)
 
 Which one to pick:
 
@@ -165,7 +163,9 @@ Which one to pick:
 | Ends up in a packaged build | only if you add its folder to **Project Settings → Packaging → Additional Non-Asset Directories to Package** | automatically |
 | Referenced directly from a Blueprint | no, you pass a path | yes |
 
-A **Json Level** asset can also be created from scratch: right-click in the Content Browser → **Miscellaneous → Data Asset → Json Level Asset**.
+A **Json Level** asset can also be created from scratch: right-click in the Content Browser → **Miscellaneous → Data Asset → Json Level Asset**. Its **Level Json** field holds the same text you'd see in the JsonLevels panel:
+
+![A Json Level data asset's Details panel, showing the Level Json field with the level's JSON](https://github.com/slonorib/JsonLevels-docs/blob/main/Screenshots/blueprint-tutorial-9.png?raw=true)
 
 To load a level at runtime, `UJlsGenerator` has a function for each option:
 
