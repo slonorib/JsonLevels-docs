@@ -24,6 +24,9 @@ It's perfect for casual games with multiple levels (e.g. match-3, puzzles, arkan
 1. Get the plugin from [Fab](https://www.fab.com/) (or add it directly to your project's `Plugins/` folder).
 2. Open your project, then go to **Edit → Plugins** and make sure **Json Levels Tools** is enabled.
 3. Restart the editor if prompted.
+4. Open the JsonLevels panel: in the Level Editor toolbar, click the **Select Mode** dropdown (top-left, above the viewport) and choose **JsonLevels**.
+
+    ![Editor Modes dropdown with JsonLevels mode selected](https://github.com/slonorib/JsonLevels-docs/blob/main/Screenshots/blueprint-tutorial-5.png?raw=true)
 
 ## JSON → Level
 
@@ -102,11 +105,7 @@ In the previous step, you implemented the `JlsGameplayActor` interface functions
 
 Notice the **Enemy Data** tab in the actor's Details panel. These fields were added as part of the RPG enemy example — they'll be written to JSON during the JSON creation step, then read back into the actor during level creation.
 
-Open the list of editing modes and select **JsonLevels**:
-
-![Editor Modes dropdown with JsonLevels mode selected](https://github.com/slonorib/JsonLevels-docs/blob/main/Screenshots/blueprint-tutorial-5.png?raw=true)
-
-Then click **Create JSON**. The generated JSON appears in the text box:
+Open the [JsonLevels panel](#installation) and click **Create JSON**. The generated JSON appears in the text box:
 
 ![JsonLevels editor mode panel showing the generated JSON in its text box](https://github.com/slonorib/JsonLevels-docs/blob/main/Screenshots/blueprint-tutorial-6.png?raw=true)
 
