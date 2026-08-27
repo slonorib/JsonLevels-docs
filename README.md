@@ -18,7 +18,7 @@ Json Levels is a plugin that helps you generate text-based (JSON) representation
 It's perfect for casual games with multiple levels (e.g. match-3, puzzles, arkanoid), but you can use it in any scenario where you need to dynamically generate actors from text data.
 
 ## Requirements
-- **Supported Unreal Engine versions:** 4.27, 5.0–5.8
+- **Supported Unreal Engine versions:** 4.27, 5.0–5.8. Core functionality (JSON ⟷ level conversion, saving/loading) works across this whole range, but new releases are only built and tested against **5.6, 5.7 and 5.8** — if you're on an older engine version, you'll stay on the last plugin version that was built for it.
 - **Platforms:** Windows, Mac (OSX), Linux, iOS, Android
 
 ## Installation
