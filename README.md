@@ -8,8 +8,9 @@
    - [C++ Tutorial](#c-tutorial-a-bit-more-technical)
    - [Blueprints Tutorial](#blueprints-tutorial-a-bit-less-technical)
 5. [Level → JSON](#level--json)
-6. [Examples](#examples)
-7. [Support](#support)
+6. [Saving and loading levels](#saving-and-loading-levels)
+7. [Examples](#examples)
+8. [Support](#support)
 
 ## Overview
 Json Levels is a plugin that helps you generate text-based (JSON) representations of levels via an editor tool, then construct levels from that text at runtime.
@@ -42,6 +43,8 @@ It has 2 functions:
     /** Remove all actors that implement IJlsGameplayActor interface from the scene */
     UFUNCTION(BlueprintCallable, Category = "JsonLevels")
     void ClearLevel();
+
+There are two more ways to generate a level, covered in [Saving and loading levels](#saving-and-loading-levels): `GenerateLevelFromFile(...)` and `GenerateLevelFromAsset(...)`.
 
 It also exposes an `OnObjectsSpawned` delegate, which fires once all objects from the JSON have been spawned and the level is ready:
 
@@ -146,6 +149,46 @@ Remember the cube named Jake? Here's how he looks now:
             ]
         }
     }
+
+## Saving and loading levels
+The JSON text box is editable, so you can always paste a level into it by hand. For everything else there are two buttons in the [JsonLevels panel](#installation):
+
+- **Save Level → To JSON File...** writes the JSON to a `.json` file anywhere on disk.
+- **Save Level → To Data Asset...** writes it to a **Json Level** asset in your project.
+- **Load Level → From JSON File... / From Data Asset...** reads it back into the text box and generates the level in the scene straight away, so there's no need to press **Generate Level** afterwards.
+
+Which one to pick:
+
+| | JSON file | Json Level asset |
+|---|---|---|
+| Editable outside the engine (game designers, modders, `git diff`) | yes | no |
+| Ends up in a packaged build | only if you add its folder to **Project Settings → Packaging → Additional Non-Asset Directories to Package** | automatically |
+| Referenced directly from a Blueprint | no, you pass a path | yes |
+
+A **Json Level** asset can also be created from scratch: right-click in the Content Browser → **Miscellaneous → Data Asset → Json Level Asset**.
+
+To load a level at runtime, `UJlsGenerator` has a function for each option:
+
+    /** Parse Json stored in a level asset and spawn objects listed in it. */
+    UFUNCTION(BlueprintCallable, Category = "JsonLevels")
+    void GenerateLevelFromAsset(const UJlsLevelAsset* LevelAsset);
+
+    /** Read Json from a file and spawn objects listed in it.
+    * @param FilePath Absolute path to a Json file, or a path relative to the project directory. */
+    UFUNCTION(BlueprintCallable, Category = "JsonLevels")
+    void GenerateLevelFromFile(const FString& FilePath);
+
+Both end up calling `GenerateLevel(...)`, so `OnObjectsSpawned` fires exactly as it does for the string version. If the asset is null or the file can't be read, the delegate fires with `bSuccess = false`.
+
+If your game writes levels itself (a built-in level editor, user-generated content), `UJlsFileUtils` exposes the file handling to Blueprints as well:
+
+    UFUNCTION(BlueprintCallable, Category = "JsonLevels|File")
+    static bool LoadJsonFromFile(const FString& FilePath, FString& OutJson);
+
+    UFUNCTION(BlueprintCallable, Category = "JsonLevels|File")
+    static bool SaveJsonToFile(const FString& Json, const FString& FilePath);
+
+Files are written as UTF-8 without a BOM, and missing directories are created for you.
 
 ## Examples
 The plugin ships with 2 folders of examples:
